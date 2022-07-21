@@ -55,20 +55,33 @@ input {
 }
 button {
 	border: none;
-	background-color: #3db53d;
-	color: whitesmoke;
 	padding: 10px 15px;
 	border-radius: 5px;
-}
 
+	background-color: #3d59b5;
+	color: whitesmoke;
+
+	transition: background-color 0.3s ease;
+}
 button:hover {
-	background-color: rgb(70, 202, 70);
 	cursor: pointer;
+	background-color: #4966c5;
 }
 button:disabled {
+	cursor: default;
+}
+
+button.is-success {
+	background-color: #3db53d;
+	color: whitesmoke;
+}
+
+button.is-success:hover {
+	background-color: rgb(70, 202, 70);
+}
+button.is-success:disabled {
 	background-color: #81cf81;
 	color: rgb(255 255 255);
-	cursor: default;
 }
 
 .app {

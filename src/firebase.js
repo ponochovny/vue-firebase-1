@@ -8,6 +8,7 @@ import {
 	signInWithEmailAndPassword,
 } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
+import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCAqvdlWyxU0xssl1xyseEiCrJyglT1TvY',
@@ -33,3 +34,4 @@ export const signInWithEmailAndPasswordE = ({ email, password }) =>
 	signInWithEmailAndPassword(firebaseAuth, email, password)
 
 export const db = getFirestore(firebaseApp)
+export const storage = getStorage()
