@@ -2,10 +2,10 @@
 	<div>
 		<h3>Home</h3>
 		<User>
-			<template v-slot:user="{ user }">
+			<template #user="{ user }">
 				<div v-if="user">
 					<UserProfile :user="user" />
-					<ChatList :uid="user.firebaseUser.uid" />
+					<ChatList :uid="user.uid" />
 				</div>
 				<Login v-else />
 			</template>

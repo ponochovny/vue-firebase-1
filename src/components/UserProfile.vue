@@ -1,6 +1,6 @@
 <template>
 	<div>
-		Logged in as {{ user.firebaseUser.uid }}
+		Logged in as {{ user.uid }}
 		<button @click="signOut">Sign Out</button>
 	</div>
 </template>

@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<slot name="user" :user="user"></slot>
+	<div class="user">
+		<slot name="user" :user="user?.firebaseUser"></slot>
 	</div>
 </template>
 
@@ -33,4 +33,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.user {
+	width: 800px;
+}
+</style>
