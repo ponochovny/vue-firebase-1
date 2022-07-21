@@ -6,13 +6,13 @@
 
 <script>
 import { db } from '../firebase'
-import { collection, setDoc } from 'firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore'
 
 export default {
 	methods: {
 		async createChatRoom() {
 			const colRef = collection(db, 'chats')
-			const newChat = await setDoc(colRef, {
+			const newChat = await addDoc(colRef, {
 				createAt: Date.now(),
 				owner: this.uid,
 				members: [this.uid],
