@@ -12,6 +12,8 @@ npm install
 npm run serve
 ```
 
+## Firebase settings
+
 ### Sign-in methods:
 
 ```
