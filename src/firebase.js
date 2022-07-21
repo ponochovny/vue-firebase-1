@@ -2,7 +2,12 @@ import { initializeApp } from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/storage'
-import { getAuth } from 'firebase/auth'
+import {
+	getAuth,
+	onAuthStateChanged,
+	signInAnonymously,
+	signOut,
+} from 'firebase/auth'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCAqvdlWyxU0xssl1xyseEiCrJyglT1TvY',
@@ -16,6 +21,11 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig)
 export const firebaseAuth = getAuth(firebaseApp)
+
+export const authAnonymously = () => signInAnonymously(firebaseAuth)
+export const onAuthStateChangedE = (callback) =>
+	onAuthStateChanged(firebaseAuth, callback)
+export const signOutEx = () => signOut(firebaseAuth)
 
 // export const db = firebaseApp.firestore()
 // export const auth = firebase.auth()
