@@ -5,6 +5,7 @@
 			<template v-slot:user="{ user }">
 				<div v-if="user">
 					<UserProfile :user="user" />
+					<ChatList :uid="user.firebaseUser.uid" />
 				</div>
 				<Login v-else />
 			</template>
@@ -16,6 +17,7 @@
 import Login from './Login.vue'
 import User from './User.vue'
 import UserProfile from './UserProfile.vue'
+import ChatList from './ChatList.vue'
 
 export default {
 	name: 'home-page',
@@ -23,6 +25,7 @@ export default {
 		Login,
 		User,
 		UserProfile,
+		ChatList,
 	},
 }
 </script>

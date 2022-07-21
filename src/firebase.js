@@ -1,7 +1,4 @@
 import { initializeApp } from 'firebase/app'
-import 'firebase/firestore'
-import 'firebase/auth'
-import 'firebase/storage'
 import {
 	getAuth,
 	onAuthStateChanged,
@@ -10,6 +7,7 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCAqvdlWyxU0xssl1xyseEiCrJyglT1TvY',
@@ -34,6 +32,4 @@ export const createUserWithEmailAndPasswordE = ({ email, password }) =>
 export const signInWithEmailAndPasswordE = ({ email, password }) =>
 	signInWithEmailAndPassword(firebaseAuth, email, password)
 
-// export const db = firebaseApp.firestore()
-// export const auth = firebase.auth()
-// export const storage = firebaseApp.storage()
+export const db = getFirestore(firebaseApp)

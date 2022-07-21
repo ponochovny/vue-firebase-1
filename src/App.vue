@@ -29,14 +29,17 @@ body {
 
 h1,
 h3 {
-	font-weight: 400;
+	font-weight: 500;
 }
-
+label {
+	line-height: 28px;
+}
 input {
 	border: 1px solid rgb(225, 225, 225);
 	border-radius: 4px;
 	height: 30px;
 	padding: 2px 8px;
 	background: white;
+	margin-bottom: 10px;
 }
 </style>
