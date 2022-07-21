@@ -7,6 +7,8 @@ import {
 	onAuthStateChanged,
 	signInAnonymously,
 	signOut,
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
 } from 'firebase/auth'
 
 const firebaseConfig = {
@@ -26,6 +28,11 @@ export const authAnonymously = () => signInAnonymously(firebaseAuth)
 export const onAuthStateChangedE = (callback) =>
 	onAuthStateChanged(firebaseAuth, callback)
 export const signOutEx = () => signOut(firebaseAuth)
+
+export const createUserWithEmailAndPasswordE = ({ email, password }) =>
+	createUserWithEmailAndPassword(firebaseAuth, email, password)
+export const signInWithEmailAndPasswordE = ({ email, password }) =>
+	signInWithEmailAndPassword(firebaseAuth, email, password)
 
 // export const db = firebaseApp.firestore()
 // export const auth = firebase.auth()
