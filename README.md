@@ -1,7 +1,5 @@
 # vue-firebase-1
 
-# my-app
-
 ## Project setup
 
 ```
@@ -14,18 +12,36 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Sign-in methods:
 
 ```
-npm run build
+Email/Password
+Anonymous
 ```
 
-### Lints and fixes files
+### Storage rules:
 
 ```
-npm run lint
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth.uid != null;
+    }
+  }
+}
 ```
 
-### Customize configuration
+### Firestore rules:
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if
+          request.time < timestamp.date(2022, 8, 20);
+    }
+  }
+}
+```
