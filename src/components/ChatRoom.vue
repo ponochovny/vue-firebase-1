@@ -254,8 +254,6 @@ export default {
 				this.newAudio = new Blob(recordedChunks, {
 					type: 'audio/ogg; codecs=opus',
 				})
-				const audioURL = window.URL.createObjectURL(this.newAudio)
-				console.log('audioURL', audioURL)
 				console.log(this.newAudio)
 			})
 
