@@ -239,7 +239,6 @@ export default {
 
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: true,
-				video: false,
 			})
 
 			const recordedChunks = []
@@ -252,10 +251,8 @@ export default {
 			})
 			this.recorder.addEventListener('stop', () => {
 				this.newAudio = new Blob(recordedChunks, {
-					type: 'audio/ogg; codecs=opus',
+					type: 'audio/mp4',
 				})
-				const audioURL = window.URL.createObjectURL(this.newAudio)
-				console.log('audioURL', audioURL)
 				console.log(this.newAudio)
 			})
 
