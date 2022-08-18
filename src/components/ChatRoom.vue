@@ -56,7 +56,7 @@
 							}"
 							:title="message.sender"
 						>
-							{{ message.sender.slice(0, 1) }}
+							{{ message.sender.slice(0, 1).toUpperCase() }}
 						</div>
 						<div v-else class="avatar-shift"></div>
 						<ChatMessage
@@ -133,7 +133,7 @@
 					@click.self="toggleModal(false)"
 				>
 					<div class="card pt-3 pb-3 px-4 pe-5">
-						<input type="text" class="form-control" />
+						<input type="text" class="form-control" :value="fullPath" />
 						<button
 							type="button"
 							class="btn-close btn-close-black"
@@ -154,7 +154,6 @@ import { db, storage } from '../firebase'
 import {
 	collection,
 	doc,
-	limit,
 	onSnapshot,
 	orderBy,
 	query,
@@ -178,7 +177,7 @@ export default {
 		}
 	},
 	created() {
-		const q = query(this.messagesCollection, orderBy('createdAt'), limit(10))
+		const q = query(this.messagesCollection, orderBy('createdAt'))
 		this.unsubscribe = onSnapshot(q, (querySnapshot) => {
 			const messages = []
 			querySnapshot.forEach((doc) => {
@@ -277,6 +276,9 @@ export default {
 		newAudioURL() {
 			return URL.createObjectURL(this.newAudio)
 		},
+		fullPath() {
+			return window.location.origin + this.$router.currentRoute.value.fullPath
+		},
 	},
 	unmounted() {
 		this.unsubscribe()
@@ -342,6 +344,10 @@ li {
 	gap: 10px;
 }
 
+.chatroom-head .upper-controls button {
+	white-space: nowrap;
+}
+
 .share-modal {
 	position: fixed;
 	top: 0;
@@ -363,6 +369,18 @@ li {
 	position: absolute;
 	top: 22px;
 	right: 8px;
+}
+
+.share-modal input {
+	min-width: 520px;
+	text-align: center;
+}
+
+@media (max-width: 600px) {
+	.share-modal input {
+		min-width: auto;
+		width: 70vw;
+	}
 }
 
 .fade-modal-enter-from {
