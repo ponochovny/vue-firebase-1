@@ -1,13 +1,12 @@
-# vue-firebase-1
+# Vue + Firebase Live Chat
+
+demo - https://vponochovny-livechat.web.app/
 
 ## Project setup
 
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
-
 ```
 npm run serve
 ```
