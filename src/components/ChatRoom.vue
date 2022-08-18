@@ -121,7 +121,10 @@
 						</button>
 					</div>
 
-					<audio v-if="newAudio" :src="newAudioURL" controls></audio>
+					<audio v-if="newAudio" preload="auto" controls>
+						<source :src="newAudioURL" type="audio/ogg" />
+						<source :src="newAudioURL" type="audio/mpeg" />
+					</audio>
 				</form>
 			</template>
 		</User>
@@ -239,9 +242,8 @@ export default {
 				video: false,
 			})
 
-			const options = { mimeType: 'audio/webm' }
 			const recordedChunks = []
-			this.recorder = new MediaRecorder(stream, options)
+			this.recorder = new MediaRecorder(stream)
 
 			this.recorder.addEventListener('dataavailable', (e) => {
 				if (e.data.size > 0) {
@@ -249,7 +251,11 @@ export default {
 				}
 			})
 			this.recorder.addEventListener('stop', () => {
-				this.newAudio = new Blob(recordedChunks)
+				this.newAudio = new Blob(recordedChunks, {
+					type: 'audio/ogg; codecs=opus',
+				})
+				const audioURL = window.URL.createObjectURL(this.newAudio)
+				console.log('audioURL', audioURL)
 				console.log(this.newAudio)
 			})
 

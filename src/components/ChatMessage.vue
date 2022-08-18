@@ -1,7 +1,10 @@
 <template>
 	<div class="message" :class="{ 'from-user': owner }">
 		{{ message.text }}
-		<audio v-if="message.audioURL" :src="message.audioURL" controls></audio>
+		<audio v-if="message.audioURL" preload="auto" controls>
+			<source :src="message.audioURL" type="audio/ogg" />
+			<source :src="message.audioURL" type="audio/mpeg" />
+		</audio>
 	</div>
 </template>
 
