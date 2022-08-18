@@ -1,13 +1,18 @@
 <template>
 	<div>
-		<ul>
+		<ul v-if="chats.length > 0">
 			<li v-for="chat of chats" :key="chat.id">
 				<router-link :to="{ name: 'chat', params: { id: chat.id } }">{{
 					chat.id
 				}}</router-link>
 			</li>
 		</ul>
-		<button @click="createChatRoom()">Create New Chat Room</button>
+
+		<p v-else class="mb-4 mt-4 fs-5">Currently, You have no active chats</p>
+
+		<button @click="createChatRoom()" class="btn btn-success">
+			Create New Chat Room
+		</button>
 	</div>
 </template>
 

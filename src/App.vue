@@ -1,8 +1,8 @@
 <template>
-	<div class="app">
-		<header>
+	<div class="app container">
+		<header class="text-center">
 			<h1>Vue Voxer</h1>
-			<p>Realtime Voice Chat</p>
+			<h2>Realtime Voice Chat</h2>
 		</header>
 		<router-view></router-view>
 	</div>
@@ -22,7 +22,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
-html,
+/* html,
 body {
 	margin: 0;
 	padding: 0;
@@ -90,5 +90,26 @@ button.is-success:disabled {
 
 h1 {
 	margin: 0;
+} */
+
+button:disabled {
+	cursor: not-allowed;
+	pointer-events: all !important;
+}
+
+code {
+	background-color: #f5f5f5;
+	color: #108fda;
+	font-size: 0.875em;
+	font-weight: 400;
+	padding: 0.25em 0.5em 0.25em;
+}
+
+.app h2 {
+	font-weight: normal;
+}
+
+.app header {
+	margin-bottom: 28px;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h3>Home</h3>
 		<User>
 			<template #user="{ user }">
 				<div v-if="user">

@@ -5,14 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "npm run build && firebase deploy --only hosting:vponochovny-livechat"
   },
   "dependencies": {
     "core-js": "^3.8.3",
     "firebase": "^9.9.1-20220720012906",
     "vue": "^3.2.13",
-    "vue-router": "^4.1.2",
-    "vuefire": "^3.0.0-alpha.2"
+    "vue-router": "^4.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

@@ -1,10 +1,48 @@
 <template>
-	<main>
-		<h3>Welcome to ChatRoom {{ chatId }}</h3>
+	<main class="row justify-content-center">
+		<div class="chatroom-head mb-4">
+			<h3>
+				Welcome to ChatRoom <code>{{ chatId }}</code>
+			</h3>
+			<div class="upper-controls">
+				<button class="btn btn-light" @click="$router.go(-1)">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						fill="currentColor"
+						class="bi bi-arrow-bar-left"
+						viewBox="0 0 16 16"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"
+						/>
+					</svg>
+					Back
+				</button>
+				<button class="btn btn-primary">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						fill="currentColor"
+						class="bi bi-share"
+						viewBox="0 0 16 16"
+					>
+						<path
+							d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"
+						/>
+					</svg>
+
+					Room Link
+				</button>
+			</div>
+		</div>
 
 		<User>
 			<template #user="{ user }">
-				<ul>
+				<ul v-if="messages.length > 0">
 					<li v-for="message of messages" :key="message.id">
 						<ChatMessage
 							:message="message"
@@ -12,25 +50,64 @@
 						/>
 					</li>
 				</ul>
+				<div v-else class="fs-5 mb-4 text-center text-black-50">
+					No messages...
+				</div>
 
-				<input type="text" v-model="newMessageText" class="input" />
-				<hr />
-				<h5>Record Audio</h5>
+				<form @submit.prevent="submit">
+					<div class="message-controls">
+						<input type="text" class="form-control" v-model="newMessageText" />
+						<button
+							:disabled="(!newMessageText && newAudio == null) || loading"
+							class="btn btn-success"
+							type="submit"
+							@click="addMessage(user.uid)"
+						>
+							Send
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								class="bi bi-send"
+								viewBox="0 0 16 16"
+							>
+								<path
+									d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"
+								/>
+							</svg>
+						</button>
+						<button
+							v-if="!recorder"
+							type="button"
+							class="btn btn-primary"
+							@click="record()"
+						>
+							Record
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								class="bi bi-mic"
+								viewBox="0 0 16 16"
+							>
+								<path
+									d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"
+								/>
+								<path
+									d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"
+								/>
+							</svg>
+						</button>
 
-				<button v-if="!recorder" @click="record()">Record</button>
-				<button v-else @click="stop()">Stop</button>
+						<button type="button" class="btn btn-danger" v-else @click="stop()">
+							Stop
+						</button>
+					</div>
 
-				<audio v-if="newAudio" :src="newAudioURL" controls></audio>
-				<hr />
-
-				<button
-					:disabled="(!newMessageText && newAudio == null) || loading"
-					class="button is-success"
-					type="text"
-					@click="addMessage(user.uid)"
-				>
-					Send
-				</button>
+					<audio v-if="newAudio" :src="newAudioURL" controls></audio>
+				</form>
 			</template>
 		</User>
 	</main>
@@ -148,6 +225,9 @@ export default {
 			this.recorder.stop()
 			this.recorder = null
 		},
+		submit() {
+			this.addMessage(this.user.uid)
+		},
 	},
 	computed: {
 		chatId() {
@@ -169,18 +249,37 @@ export default {
 <style>
 ul {
 	list-style-type: none;
-	margin: 0;
-	padding: 0;
 	display: flex;
 	flex-direction: column;
-	min-width: 500px;
-	background-color: #efefef;
+	margin: 0;
 	padding: 10px;
-	border-radius: 0;
 }
 
 li {
 	display: flex;
 	margin-bottom: 10px;
+}
+
+.message-controls {
+	display: flex;
+	gap: 10px;
+
+	margin-bottom: 10px;
+}
+
+.user audio {
+	width: 100%;
+}
+
+.chatroom-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.chatroom-head .upper-controls {
+	display: flex;
+	gap: 10px;
 }
 </style>

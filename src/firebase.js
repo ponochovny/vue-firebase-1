@@ -11,13 +11,12 @@ import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyCAqvdlWyxU0xssl1xyseEiCrJyglT1TvY',
-	authDomain: 'vue-firebase-1-eeffc.firebaseapp.com',
-	projectId: 'vue-firebase-1-eeffc',
-	storageBucket: 'vue-firebase-1-eeffc.appspot.com',
-	messagingSenderId: '911384329495',
-	appId: '1:911384329495:web:25bc0cdeacb0334f36cb52',
-	measurementId: 'G-SQXMFWZ6TS',
+	apiKey: process.env.VUE_APP_API_KEY,
+	authDomain: `${process.env.VUE_APP_PROJECT_ID}.firebaseapp.com`,
+	projectId: `${process.env.VUE_APP_PROJECT_ID}`,
+	storageBucket: `${process.env.VUE_APP_PROJECT_ID}.appspot.com`,
+	messagingSenderId: process.env.VUE_APP_MSG_SENDER_ID,
+	appId: `1:${process.env.VUE_APP_MSG_SENDER_ID}:web:ea97adaa69dd5548a0c9c3`,
 }
 
 const firebaseApp = initializeApp(firebaseConfig)

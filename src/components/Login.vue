@@ -1,42 +1,47 @@
 <template>
-	<aside>
-		<h3>Sign in Anonymously</h3>
-		<button @click="signIn">Sign In</button>
-
-		<div v-if="newUser">
-			<h3>Sign Up for a New Account</h3>
-			<a href="#" @click="newUser = false">Returning User?</a>
+	<div class="login-page">
+		<div class="form-header">
+			<h3>Sign in Anonymously</h3>
+			<button @click="signIn" class="btn btn-primary">Sign In</button>
 		</div>
-
-		<div v-else>
-			<h3>Sign In with Email</h3>
-			<a href="#" @click="newUser = true">New User?</a>
-		</div>
-
-		<label for="email">Email</label><br />
-		<input
-			type="email"
-			v-model="email"
-			placeholder="email"
-			class="input"
-		/><br />
-
-		<label for="password">Password</label><br />
-		<input
-			type="password"
-			v-model="password"
-			placeholder="password"
-			class="input"
-		/>
 
 		<br />
+		<br />
 
-		<button @click="signInOrCreateUser()">
-			{{ loading ? '...' : newUser ? 'Sign Up' : 'Login' }}
-		</button>
+		<h3>{{ newUser ? 'Sign Up for a New Account' : 'Sign In with Email' }}</h3>
+
+		<div class="form-wrapper">
+			<label for="email">Email</label><br />
+			<input
+				type="email"
+				v-model="email"
+				placeholder="email"
+				class="form-control mb-2"
+			/>
+
+			<label for="password">Password</label><br />
+			<input
+				type="password"
+				v-model="password"
+				placeholder="password"
+				class="form-control"
+			/>
+		</div>
+
+		<div class="form-footer">
+			<button @click="signInOrCreateUser()" class="btn btn-primary">
+				{{ loading ? '...' : newUser ? 'Sign Up' : 'Login' }}
+			</button>
+			<div v-if="newUser">
+				<a href="#" @click="newUser = false">Returning User?</a>
+			</div>
+			<div v-else>
+				<a href="#" @click="newUser = true">New User?</a>
+			</div>
+		</div>
 
 		<p :style="{ color: 'red' }" v-if="errorMessage">{{ errorMessage }}</p>
-	</aside>
+	</div>
 </template>
 
 <script>
@@ -90,4 +95,37 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.user {
+	display: flex;
+	align-content: center;
+}
+
+.login-page {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.form-wrapper {
+	margin-bottom: 16px;
+	margin-top: 16px;
+}
+
+.form-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.form-header h3 {
+	margin-bottom: 16px;
+}
+
+.form-footer {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+}
+</style>

@@ -35,6 +35,9 @@ export default {
 
 <style scoped>
 .user {
-	width: 800px;
+	padding: 30px 16px;
+	border: 2px solid whitesmoke;
+	border-radius: 12px;
+	flex-direction: column;
 }
 </style>

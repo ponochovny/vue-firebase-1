@@ -20,15 +20,17 @@ export default {
 .message {
 	background: #ddd;
 	color: black;
-	margin-right: 10px;
-	margin-left: auto;
+	margin-left: 10px;
+	margin-right: auto;
 	border-radius: 5px;
 	padding: 12px;
 	display: inline-block;
+	width: 35%;
+	min-width: 250px;
 }
 .from-user {
-	margin-left: 10px;
-	margin-right: auto;
+	margin-right: 10px;
+	margin-left: auto;
 	background: #91bbff;
 }
 .sender {
