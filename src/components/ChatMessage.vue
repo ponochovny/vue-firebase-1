@@ -29,7 +29,7 @@ export default {
 .from-user {
 	margin-right: 10px;
 	margin-left: auto;
-	background: #b1cfff;
+	background: #cae6ff;
 }
 .sender {
 	font-size: 0.5rem;
