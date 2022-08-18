@@ -5,7 +5,7 @@
 				Welcome to ChatRoom <code>{{ chatId }}</code>
 			</h3>
 			<div class="upper-controls">
-				<button class="btn btn-light" @click="$router.go(-1)">
+				<button class="btn btn-light" type="button" @click="$router.push('/')">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
@@ -21,7 +21,11 @@
 					</svg>
 					Back
 				</button>
-				<button class="btn btn-primary">
+				<button
+					class="btn btn-primary"
+					type="button"
+					@click="toggleModal(true)"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
@@ -44,6 +48,17 @@
 			<template #user="{ user }">
 				<ul v-if="messages.length > 0">
 					<li v-for="message of messages" :key="message.id">
+						<div
+							v-if="message.avatar && user.uid !== message.sender"
+							class="avatar"
+							:style="{
+								backgroundColor: message.bgColor ? message.bgColor : 'black',
+							}"
+							:title="message.sender"
+						>
+							{{ message.sender.slice(0, 1) }}
+						</div>
+						<div v-else class="avatar-shift"></div>
 						<ChatMessage
 							:message="message"
 							:owner="user.uid === message.sender"
@@ -110,6 +125,25 @@
 				</form>
 			</template>
 		</User>
+		<teleport to="body">
+			<transition name="fade-modal">
+				<div
+					class="share-modal"
+					v-show="share"
+					@click.self="toggleModal(false)"
+				>
+					<div class="card pt-3 pb-3 px-4 pe-5">
+						<input type="text" class="form-control" />
+						<button
+							type="button"
+							class="btn-close btn-close-black"
+							aria-label="Close"
+							@click="toggleModal(false)"
+						></button>
+					</div>
+				</div>
+			</transition>
+		</teleport>
 	</main>
 </template>
 
@@ -127,6 +161,7 @@ import {
 	setDoc,
 } from '@firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from '@firebase/storage'
+import { messagesStucker } from '../helper/messagesStucker'
 
 export default {
 	name: 'chatroom-component',
@@ -139,6 +174,7 @@ export default {
 			newAudio: null,
 			recorder: null,
 			unsubscribe: () => {},
+			share: false,
 		}
 	},
 	created() {
@@ -148,8 +184,7 @@ export default {
 			querySnapshot.forEach((doc) => {
 				messages.push({ id: doc.id, ...doc.data() })
 			})
-			this.messages = messages
-			console.log(messages)
+			this.messages = messagesStucker(messages)
 		})
 	},
 	methods: {
@@ -228,6 +263,9 @@ export default {
 		submit() {
 			this.addMessage(this.user.uid)
 		},
+		toggleModal(value) {
+			this.share = value
+		},
 	},
 	computed: {
 		chatId() {
@@ -257,7 +295,28 @@ ul {
 
 li {
 	display: flex;
+	align-items: flex-start;
 	margin-bottom: 10px;
+}
+
+.avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 1.3rem;
+
+	pointer-events: none;
+	user-select: none;
+}
+
+.avatar-shift {
+	width: 50px;
+	height: 50px;
+	display: inline-flex;
 }
 
 .message-controls {
@@ -281,5 +340,43 @@ li {
 .chatroom-head .upper-controls {
 	display: flex;
 	gap: 10px;
+}
+
+.share-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #00000040;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.share-modal .card {
+	position: relative;
+}
+
+.share-modal button {
+	position: absolute;
+	top: 22px;
+	right: 8px;
+}
+
+.fade-modal-enter-from {
+	opacity: 0;
+}
+.fade-modal-enter-to {
+	opacity: 1;
+	transition: opacity 0.4s ease;
+}
+.fade-modal-leave-from {
+	opacity: 1;
+}
+.fade-modal-leave-to {
+	opacity: 0;
+	transition: opacity 0.2s ease;
 }
 </style>

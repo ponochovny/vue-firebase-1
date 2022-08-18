@@ -1,12 +1,14 @@
 <template>
 	<div>
-		<ul v-if="chats.length > 0">
-			<li v-for="chat of chats" :key="chat.id">
-				<router-link :to="{ name: 'chat', params: { id: chat.id } }">{{
-					chat.id
-				}}</router-link>
-			</li>
-		</ul>
+		<div class="list-group my-4" v-if="chats.length > 0">
+			<router-link
+				v-for="chat of chats"
+				:key="chat.id"
+				:to="{ name: 'chat', params: { id: chat.id } }"
+				class="list-group-item list-group-item-action"
+				>{{ chat.id }}</router-link
+			>
+		</div>
 
 		<p v-else class="mb-4 mt-4 fs-5">Currently, You have no active chats</p>
 

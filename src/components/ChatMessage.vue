@@ -1,12 +1,7 @@
 <template>
 	<div class="message" :class="{ 'from-user': owner }">
 		{{ message.text }}
-		<br />
-
 		<audio v-if="message.audioURL" :src="message.audioURL" controls></audio>
-		<br />
-
-		<span class="sender">from UID {{ message.sender }}</span>
 	</div>
 </template>
 
@@ -18,7 +13,7 @@ export default {
 
 <style scoped>
 .message {
-	background: #ddd;
+	background: #f7f7f7;
 	color: black;
 	margin-left: 10px;
 	margin-right: auto;
@@ -31,7 +26,7 @@ export default {
 .from-user {
 	margin-right: 10px;
 	margin-left: auto;
-	background: #91bbff;
+	background: #b1cfff;
 }
 .sender {
 	font-size: 0.5rem;
