@@ -1,6 +1,6 @@
 # Vue + Firebase Live Chat
 
-demo - https://vponochovny-livechat.web.app/
+demo - https://ponochovny-livechat.web.app/
 
 ## Project setup
 
