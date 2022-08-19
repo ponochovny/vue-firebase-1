@@ -1,4 +1,4 @@
-# Vue + Firebase Live Chat
+# Vue + Firebase - Live Chat
 
 demo - https://ponochovny-livechat.web.app/
 
