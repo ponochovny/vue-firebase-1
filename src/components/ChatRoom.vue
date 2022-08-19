@@ -1,10 +1,10 @@
 <template>
-	<main class="row justify-content-center">
-		<div class="chatroom-head mb-4">
-			<h3>
+	<main class="row justify-content-center p-3 p-sm-0">
+		<div class="chatroom-head mb-sm-4 mb-2 flex-column flex-sm-row p-0">
+			<h3 class="mb-3 mb-sm-0 text-sm-start text-center">
 				Welcome to ChatRoom <code>{{ chatId }}</code>
 			</h3>
-			<div class="upper-controls">
+			<div class="upper-controls align-self-end">
 				<button class="btn btn-light" type="button" @click="$router.push('/')">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
