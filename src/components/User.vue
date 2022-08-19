@@ -14,10 +14,8 @@ export default {
 		const user = ref(null)
 		const onAuthStateChanged = onAuthStateChangedE((firebaseUser) => {
 			if (firebaseUser) {
-				console.log('... 1', firebaseUser)
 				user.value = { firebaseUser }
 			} else {
-				console.log('... 2', firebaseUser)
 				user.value = null
 			}
 		})

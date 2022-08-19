@@ -9,10 +9,6 @@
 </template>
 
 <script>
-import { firebaseAuth } from './firebase'
-
-console.log(firebaseAuth)
-
 export default {
 	name: 'App',
 	components: {},

@@ -75,13 +75,11 @@ export default {
 	methods: {
 		async createChatRoom() {
 			const colRef = collection(db, 'chats')
-			const newChat = await addDoc(colRef, {
+			await addDoc(colRef, {
 				createAt: Date.now(),
 				owner: this.uid,
 				members: [this.uid],
 			})
-
-			console.log(newChat)
 		},
 	},
 	props: ['uid'],

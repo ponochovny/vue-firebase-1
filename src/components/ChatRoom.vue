@@ -191,8 +191,6 @@ export default {
 	},
 	methods: {
 		async addMessage(uid) {
-			console.log(uid)
-
 			this.loading = true
 
 			let audioURL = null
@@ -221,14 +219,12 @@ export default {
 					.catch((error) => console.log('some error', error))
 			}
 
-			const newMessage = await setDoc(newMessageRef, {
+			await setDoc(newMessageRef, {
 				text: this.newMessageText,
 				sender: uid,
 				createdAt: Date.now(),
 				audioURL,
 			})
-
-			console.log(newMessage)
 
 			this.loading = false
 			this.newMessageText = ''

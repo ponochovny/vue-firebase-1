@@ -65,8 +65,7 @@ export default {
 	methods: {
 		async signIn() {
 			try {
-				const data = await authAnonymously()
-				console.log(data)
+				await authAnonymously()
 			} catch (error) {
 				console.log(error)
 			}
