@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "vponochovny-livechat",
+    "site": "ponochovny-livechat",
     "public": "dist",
     "ignore": [
       "firebase.json",
